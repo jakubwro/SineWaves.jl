@@ -187,14 +187,14 @@ Original [C library](https://github.com/jakubwro/sinewave/blob/master/sinewave.h
 Insetad of mapping `init` function directly I will create a Julia structure coresponding to the C structure. Due to the fact that Julia uses the same memory layout, there is no special mapping needed.
 
 ```
-mutable struct SineWave
+mutable struct Sine
     previous::Float64
     current::Float64
     cosine::Float64
 end
 ```
 
-Then I'll define a constructor that calls the C `init` with ccall.
+Then I'll define a private constructor that calls the C `init` with ccall.
 
 ```
     function Sine(frequency::Float64, samplerate::Float64)
