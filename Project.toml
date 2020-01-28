@@ -1,2 +1,7 @@
+name = "SineWave"
+uuid = "7e3735a1-a2b3-41bf-a145-f9557d54d374"
+authors = ["Jakub Wronowski <jakubwro@users.noreply.github.com>"]
+version = "0.1.0"
+
 [deps]
 sinewave_jll = "9026e745-461c-5eb7-b50a-ddb23c07924d"
