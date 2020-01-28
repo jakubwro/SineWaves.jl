@@ -144,22 +144,21 @@ How should we deploy this build recipe?
 
 ## Build tarballs and deploy jll project
 
-Now time to generate jll package. It will wrap C binaries and allow import them to other projects with Julia's package manager (Pkg)
+Time to generate jll package. It will wrap C binaries and allow to import them into other projects with Julia's package manager (Pkg).
 
 1. Get familiar with options of the script with `julia build_tarballs.jl --help` command
 2. Create empty repo named `sinewave_jll` on github
 
 Normally binary dependencies are hold in [JuliaBinaryWrappers](https://github.com/JuliaBinaryWrappers/) organisation. If you are going to share your binaries with a wider audience you should consider depoying it there instead of your personal account.
 
-3. Deploy JLL package and tarballs to the newly reated repository
-
+3. Deploy JLL package and tarballs to the newly created repository
 
 ```
 $ julia build_tarballs.jl --deploy=jakubwro/sinewave_jll
 ```
 
 The script will ask you for gihub user and password to generate an access token.
-If you are not comfortable with typing a password, you can set the token in a variable before running the script.
+If you are not comfortable with typing a password, you can set the token in an environment variable before running the script.
 
 ```
 $ export GITHUB_TOKEN={put your access token here}
