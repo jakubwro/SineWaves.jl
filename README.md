@@ -33,7 +33,7 @@ julia> using BinaryBuilder
 julia> run_wizard()
 ```
 
-3. Select platforms
+2. Select platforms
 
 You can limit build to some specific platforms.
 ```
@@ -45,7 +45,7 @@ Make a platform selection
    Fully Custom Platform Choice
 ```
 
-4. Select C library github repository
+3. Select C library github repository
 
 ```
 			# Step 2a: Obtain the source code
@@ -64,7 +64,7 @@ you will have to manually update the recorded commit.
 
 Then the Wizard can will ask if you want to include additional sources or binary dependencies but I am going to skip that by answering `N`.
 
-5. Binary dependencies
+4. Binary dependencies
 
 ```
 			# Step 2b: Obtain binary dependencies (if any)
@@ -72,13 +72,13 @@ Then the Wizard can will ask if you want to include additional sources or binary
 Do you require any (binary) dependencies?  [y/N]: N
 ```
 
-6. Enter name of the original C project. In my case it `sinewave`
+5. Enter name of the original C project. In my case it `sinewave`
 ```
 Enter a name for this project.  This will be used for filenames:
 > sinewave
 ```
 
-7. Enter versoin of the project.
+6. Enter versoin of the project.
 
 It should be 0.0.1, 0.1.0 or 1.0.0 for the first time (TODO: is that true?)
 ```
@@ -86,7 +86,7 @@ Enter a version number for this project:
 > 0.1.0
 ```
 
-8. Sandbox shell
+7. Sandbox shell
 
 Now you'll be moved to a sandbox shell. There you should type commands to build shared libraries and copy them to predefined $libdir and $bindir directories. In my case Makefile handles that itself, so the only things I need to do is to enter source code directory and run `make install`
 
@@ -103,7 +103,7 @@ cp sine /workspace/destdir/bin
 
 After you finish press CTRL+D to quit sandbox. All you typed was recorded and will be stored in the result build recipe. There is an option to edit the script in vi, so you can delete unnecessary commands.
 
-9. After this step you need to select artifacts that you want to deploy. Despite that there is also executable generated, I am insterested in deploying just the library
+8. After this step you need to select artifacts that you want to deploy. Despite that there is also executable generated, I am insterested in deploying just the library
 
 ```
 			# Step 4: Select build products
@@ -125,11 +125,11 @@ lib/libsinewave.so:
 > libsinewave
 ```
 
-10. Testing the build recipe against all specified targets
+9. Testing the build recipe against all specified targets
 
 Now the script will be tested against all build targets in sandboxes. If something will be wrong, you'll be moved to interactive shell to provide proper seqence of commands for the failing build.
 
-11. Deployment of build recipe.
+10. Deployment of build recipe.
 
 Standard place to keep build recipes is [Yggdrasil](https://github.com/JuliaPackaging/Yggdrasil) repository. Anyway, for tutorial purpose I am not going to deploy there. Local file suits me more for now.
 
