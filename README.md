@@ -1,6 +1,6 @@
 # SineWave.jl
 
-In this tutoral I will show how to add [binary dependency](https://github.com/jakubwro/sinewave) to Julia using [BinaryBuilder.jl](https://github.com/JuliaPackaging/BinaryBuilder.jl) package.
+In this tutorial I will show how to add [binary dependency](https://github.com/jakubwro/sinewave) to Julia using [BinaryBuilder.jl](https://github.com/JuliaPackaging/BinaryBuilder.jl) package.
 
 ## Ensure BianaryBuilder.jl is installed and up to date
 
@@ -45,7 +45,7 @@ Make a platform selection
    Fully Custom Platform Choice
 ```
 
-4. 
+4. Select C library github repository
 
 ```
 			# Step 2a: Obtain the source code
@@ -101,7 +101,7 @@ cp libsinewave.so /workspace/destdir/lib
 cp sine /workspace/destdir/bin
 ```
 
-After you finish press CTRL+D to quit sandbox. All you typed was recorded and will be stored in the result build recipe. There is and option to edit the script in vi, so you can delete unnecessary commands if you typed such.
+After you finish press CTRL+D to quit sandbox. All you typed was recorded and will be stored in the result build recipe. There is an option to edit the script in vi, so you can delete unnecessary commands.
 
 9. After this step you need to select artifacts that you want to deploy. Despite that there is also executable generated, I am insterested in deploying just the library
 
@@ -184,7 +184,7 @@ Original [C library](https://github.com/jakubwro/sinewave/blob/master/sinewave.h
 -   `init` to set values of the internal structure for given frequency
 -   `fill` to put consecutive values of the waveform generator
 
-Insetad of mapping `init` function directly I will create a Julia structure coresponding to the C structure. Due to the fact that Julia uses the same memory layout, there is no special mapping needed.
+Insetead of mapping `init` function directly I will create a Julia structure corresponding to the C structure. Due to the fact that Julia uses the same memory layout, there is no special mapping needed.
 
 ```
 mutable struct Sine
