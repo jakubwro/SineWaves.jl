@@ -78,7 +78,7 @@ Enter a name for this project.  This will be used for filenames:
 > sinewave
 ```
 
-6. Enter versoin of the project.
+6. Enter version of the project.
 
 It should be 0.0.1, 0.1.0 or 1.0.0 for the first time (TODO: is that true?)
 ```
