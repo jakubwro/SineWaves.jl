@@ -1,5 +1,6 @@
 # SineWave.jl
-A tutorial and showcase of using a binary dependency in Julia
+
+In this tutoral I will show how to add [binary dependency]() to Julia using [BinaryBuilder.jl] package.
 
 ## Ensure BianryBuilder.jl is installed and up to date
 
@@ -170,11 +171,19 @@ When script is done jll module is pushed to your repository and tarballs are vis
 
 The last step is to use JLL generated binary wrappers to expose a more Julia style API.
 
+First let's create new project needs to be generated with Pkg and add sinewave_jll binary wrapper as a dependency
+
+```
+(v1.3) pkg> generate SineWave
+(v1.3) pkg> activate SineWave
+(v1.3) pkg> add sinewave_jll
+```
+
 Original [C library]() contains a simple struct and 2 functions:
 -   `init` to set values of the internal structure for given frequency
 -   `fill` to put consecutive values of the waveform generator
 
-Insetad of mapping `init` function directly I will create a structure coresponding with C struct. Due to the fact that Julia uses the same memory layout, it will work out of the box!
+Insetad of mapping `init` function directly I will create a Julia structure coresponding to the C structure. Due to the fact that Julia uses the same memory layout, there is no special mapping needed.
 
 ```
 mutable struct SineWave
@@ -187,18 +196,51 @@ end
 Then I'll define a constructor that calls the C `init` with ccall.
 
 ```
-    function SineWave(frequency::Float64, samplerate::Float64)
+    function Sine(frequency::Float64, samplerate::Float64)
         sinewave = new()
-        status = ccall((:init, LIBSINEWAVE), Cint, (Ref{SineWave}, Cdouble, Cdouble), sinewave, frequency samplerate)
+        status = ccall((:init, libsinewave), Cint, (Ref{Sine}, Cdouble, Cdouble), sinewave, frequency samplerate)
         return sinewave
     end
 ```
 
-Then I will map C `fill` function to Julia `fill!` function because the naming conventions for functions that modify their arguments is to add `!` to the name.
+Next I will map C `fill` function to Julia `fill!` function because the naming conventions for functions that modify their arguments is to add `!` to the name.
 
 ```
-function fill!(buffer::Vector{Float64}, sine::SineWave)
-    ccall((:fill, LIBSINEWAVE), Cvoid, (Ref{SineWave}, Ptr{Float64}, Cint), sine, buffer, length(buffer))
+function fill!(buffer::Vector{Float64}, sine::Sine)
+    ccall((:fill, libsinewave), Cvoid, (Ref{Sine}, Ptr{Float64}, Cint), sine, buffer, length(buffer))
 end
+
+```
+
+After this we are ready to test the new module:
+
+```
+julia> using SineWave, UnicodePlots
+
+julia> buffer = zeros(Float64, 256);
+
+julia> s = Sine(440.0, 48000.0);
+
+julia> SineWave.fill!(buffer, s);
+
+julia> lineplot(buffer)
+      ┌────────────────────────────────────────┐
+    1 │⠀⠀⢰⠉⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡎⠙⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠋⢣⠀⠀⠀⠀⠀⠀│
+      │⠀⢀⡇⠀⠈⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠁⠀⠀⠀⠀⠀│
+      │⠀⢸⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⡇⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⠀⠀⢸⠁⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⠀⠀⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⢠⠃⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⡜⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⠀⠀⠀⢀⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⣸⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⡇⠀⠀⠀⠀⠀⠘⡄⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⠀⠀⠀⠀⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠥⠤⠤⠤⠤⠤⠤⡧⠤⠤⠤⠤⠤⠤⡼⠤⠤⠤⠤⠤⠤⢼⠤⠤⠤⠤⠤⠤⠤⡧⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤│
+      │⠀⠀⠀⠀⠀⠀⠀⢱⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠸⡀⠀⠀⠀⠀⢰⠃⠀⠀⠀⠀⠀⠀⠀⢇⠀⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⡸⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⢳⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠀⢰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢣⠀⠀⠀⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      │⠀⠀⠀⠀⠀⠀⠀⠀⠀⢇⠀⠀⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡄⠀⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+   -1 │⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣆⡰⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢱⣀⡎⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀│
+      └────────────────────────────────────────┘
+      0                                      300
 
 ```
