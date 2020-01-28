@@ -1,8 +1,8 @@
 # SineWave.jl
 
-In this tutoral I will show how to add [binary dependency]() to Julia using [BinaryBuilder.jl] package.
+In this tutoral I will show how to add [binary dependency](https://github.com/jakubwro/sinewave) to Julia using [BinaryBuilder.jl](https://github.com/JuliaPackaging/BinaryBuilder.jl) package.
 
-## Ensure BianryBuilder.jl is installed and up to date
+## Ensure BianaryBuilder.jl is installed and up to date
 
 1. Open Julia's REPL
 2. If you have no BinaryBuilder.jl installed press `]` to enter pkg prompt and then use `add` command install the package.
@@ -25,7 +25,7 @@ Press backspace to return to standard REPL.
 
 ## Create build recipe (build_tarballs.jl)
 
-To create `build_tarballs.jl` script that should be dployed to Yggdrasil repository you might use run_wizard() function. Let's do that step by step
+To create `build_tarballs.jl` script you might want to use run_wizard() function. Let's do that step by step.
 
 1. Run the Wizard
 ```
@@ -78,7 +78,8 @@ Enter a name for this project.  This will be used for filenames:
 > sinewave
 ```
 
-7. Enter versoin of the project
+7. Enter versoin of the project.
+
 It should be 0.0.1, 0.1.0 or 1.0.0 for the first time (TODO: is that true?)
 ```
 Enter a version number for this project:
@@ -130,7 +131,7 @@ Now the script will be tested against all build targets in sandboxes. If somethi
 
 11. Deployment of build recipe.
 
-Standard place to keep build recipes is Yggdrasil repository. Anyway, for tutorial purpose I am not going to deploy there. Local file suits me more for now.
+Standard place to keep build recipes is [Yggdrasil](https://github.com/JuliaPackaging/Yggdrasil) repository. Anyway, for tutorial purpose I am not going to deploy there. Local file suits me more for now.
 
 ```
 			# Step 7: Deployment
@@ -148,9 +149,9 @@ Now time to generate jll package. It will wrap C binaries and allow import them 
 1. Get familiar with options of the script with `julia build_tarballs.jl --help` command
 2. Create empty repo named `sinewave_jll` on github
 
-Normally binary dependencies are hold in JuliaBinaryWrappers organisation. If you are going to share your binaries with wider audience, you should consider depoying it there instead you personal account.
+Normally binary dependencies are hold in [JuliaBinaryWrappers](https://github.com/JuliaBinaryWrappers/) organisation. If you are going to share your binaries with a wider audience you should consider depoying it there instead of your personal account.
 
-3. Deploy JLL package and tarballs to newly reated repository
+3. Deploy JLL package and tarballs to the newly reated repository
 
 
 ```
@@ -165,7 +166,7 @@ $ export GITHUB_TOKEN={put your access token here}
 $ julia build_tarballs.jl --deploy=jakubwro/sinewave_jll
 ```
 
-When script is done jll module is pushed to your repository and tarballs are visible in [the releases tab](https://github.com/jakubwro/sinewave_jll/releases).
+When script is done JLL module is pushed to your repository and tarballs are visible in [the releases tab](https://github.com/jakubwro/sinewave_jll/releases).
 
 ## Using JLL wrappers in a module
 
@@ -179,7 +180,7 @@ First let's create new project needs to be generated with Pkg and add sinewave_j
 (v1.3) pkg> add sinewave_jll
 ```
 
-Original [C library]() contains a simple struct and 2 functions:
+Original [C library](https://github.com/jakubwro/sinewave/blob/master/sinewave.h) contains a simple struct and 2 functions:
 -   `init` to set values of the internal structure for given frequency
 -   `fill` to put consecutive values of the waveform generator
 
