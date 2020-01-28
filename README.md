@@ -2,7 +2,7 @@
 
 In this tutorial I will show how to add [binary dependency](https://github.com/jakubwro/sinewave) to Julia using [BinaryBuilder.jl](https://github.com/JuliaPackaging/BinaryBuilder.jl) package.
 
-## Ensure BianaryBuilder.jl is installed and up to date
+## Ensure BinaryBuilder.jl is installed and up to date
 
 1. Open Julia's REPL
 2. If you have no BinaryBuilder.jl installed press `]` to enter pkg prompt and then use `add` command install the package.
