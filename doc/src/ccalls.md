@@ -10,9 +10,10 @@ First let's create new project needs to be generated with Pkg and add sinewave_j
 (v1.3) pkg> add sinewave_jll
 ```
 
-Original [C library](https://github.com/jakubwro/sinewave/blob/master/sinewave.h) contains a simple struct and 2 functions:
+Original [C library](https://github.com/jakubwro/sinewave/blob/master/sinewave.h) contains a simple struct and 3 functions:
 -   `init` to set values of the internal structure for given frequency
 -   `fill` to put consecutive values of the waveform generator
+-   `spectrum` to get frequency content of a buffer with samples
 
 Insetead of mapping `init` function directly I will create a Julia structure corresponding to the C structure. Due to the fact that Julia uses the same memory layout, there is no special mapping needed.
 
