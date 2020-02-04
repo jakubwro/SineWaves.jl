@@ -8,7 +8,7 @@ version = v"0.2.0"
 # Collection of sources required to complete build
 sources = [
     "https://github.com/jakubwro/sinewave.git" =>
-    "609dbc803095d577c83478c5ef8e962613fb16a6",
+    "04e37ef9605693a85aeb3fdc26786eae426bfd68",
 ]
 
 # Bash recipe for building across all platforms
