@@ -69,9 +69,12 @@ Enter a version number for this project:
 
 Now you'll be moved to a sandbox shell. There you should type commands to build shared libraries and copy them to predefined $libdir and $bindir directories. In my case Makefile handles that itself, so the only things I need to do is to enter source code directory and run `make install`
 
+Do not use `apk` package manager for installing binary dependencies, they should be specified in `Binary dependencies` step as JLL packages. All haders you need are in `${prefix}/include` directory and libraries required for linker should be present in `${libdir}` locqtion.
+
 ```
 sandbox:${WORKSPACE}/srcdir # cd sinewave/
-sandbox:${WORKSPACE}/srcdir/sinewave # apk add fftw fftw-dev
+sandbox:${WORKSPACE}/srcdir/sinewave # export CPPFLAGS="-I${prefix}/include"
+sandbox:${WORKSPACE}/srcdir/sinewave # export LDFLAGS="-L${libdir}"
 sandbox:${WORKSPACE}/srcdir/sinewave # make install
 cc -I. -std=gnu99 -shared -fPIC -o libsinewave.so sinewave.c -lm
 cc -I. -std=gnu99 -o sine libsinewave.so examples/fill_and_print_buffer.c -lm
