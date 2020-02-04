@@ -22,6 +22,7 @@ end
 
 function fill!(buffer::Vector{Float64}, sinewave::SineWave)
     ccall((:fill, libsinewave), Cvoid, (Ref{SineWave}, Ptr{Float64}, Cint), sinewave, buffer, length(buffer))
+    return buffer
 end
 
 function spectrum(buffer::Vector{Float64})
