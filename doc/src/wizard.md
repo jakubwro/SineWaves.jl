@@ -1,7 +1,5 @@
 # Wizard
 
-Create build recipe (build_tarballs.jl)
-
 To create `build_tarballs.jl` script you might want to use run_wizard() function. Let's do that step by step.
 
 ## Run the Wizard
@@ -43,10 +41,14 @@ Then the Wizard can will ask if you want to include additional sources or binary
 
 ## Binary dependencies
 
+`sinewave` C library has a dependency to FFTW so it needs to be specified during this step.
+
 ```
 			# Step 2b: Obtain binary dependencies (if any)
 
-Do you require any (binary) dependencies?  [y/N]: N
+Do you require any (binary) dependencies?  [y/N]: y
+Enter JLL package name:
+> FFTW_jll
 ```
 
 ## Project name

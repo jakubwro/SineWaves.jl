@@ -34,11 +34,21 @@ Then I'll define a private constructor that calls the C `init` with ccall.
     end
 ```
 
-Next I will map C `fill` function to Julia `fill!` function because the naming conventions for functions that modify their arguments is to add `!` to the name.
+Next I will map C `fill` function to Julia `Base.fill!` function. I will create new method that will take a type defined in this modula as a second parameter.
 
 ```
 function fill!(buffer::Vector{Float64}, sine::Sine)
     ccall((:fill, libsinewave), Cvoid, (Ref{Sine}, Ptr{Float64}, Cint), sine, buffer, length(buffer))
 end
 
+```
+
+`spectrum` function is a bit more complicated cause it allocates memory that needs to be freed by caller. To allow GC to do that we can use `unsafe_wrap` function. There is an optional flag `own` which tells that underlying array returned from C library must be freed by GC when no longer needed.
+
+```
+function spectrum(buffer::Vector{Float64})
+    spectr = ccall((:spectrum, libsinewave), Ptr{Cdouble}, (Ptr{Float64}, Cint), buffer, length(buffer))
+    len = div(length(buffer), 2) + 1
+    return unsafe_wrap(Array{Float64,1}, spectr, len; own = true)
+end
 ```
