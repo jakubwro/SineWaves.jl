@@ -3,19 +3,20 @@
 using BinaryBuilder, Pkg
 
 name = "sinewave"
-version = v"0.1.0"
+version = v"0.2.0"
 
 # Collection of sources required to complete build
 sources = [
     "https://github.com/jakubwro/sinewave.git" =>
-    "bde3d370b6956dfb49ec95eb5e101b91ddbba60b",
+    "193b8b776d26cac02cabd264e03b917a928769be",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
 cd sinewave
-apk add fftw fftw-dev
+export CPPFLAGS="-I${prefix}/include"
+export LDFLAGS="-L${libdir}"
 make install
 """
 
