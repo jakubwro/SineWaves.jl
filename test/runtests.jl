@@ -9,6 +9,10 @@ using Test, SineWaves, FFTW
     @test sinewave.current ≈ 0.0
     @test sinewave.previous ≈ -sin(delta)
     @test sinewave.cosine ≈ cos(delta)
+
+    too_hi_frequency = 40000.0
+    
+    @test_throws ErrorException SineWave(too_hi_frequency, samplerate)
 end
 
 @testset "fill! function tests" begin
