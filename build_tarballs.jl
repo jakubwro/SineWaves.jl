@@ -8,13 +8,14 @@ version = v"0.2.0"
 # Collection of sources required to complete build
 sources = [
     "https://github.com/jakubwro/sinewave.git" =>
-    "04e37ef9605693a85aeb3fdc26786eae426bfd68",
+    "bde3d370b6956dfb49ec95eb5e101b91ddbba60b",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
 cd sinewave
+apk add fftw fftw-dev
 make install
 """
 

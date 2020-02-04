@@ -24,7 +24,9 @@ function fill!(buffer::Vector{Float64}, sinewave::SineWave)
 end
 
 function spectrum(buffer::Vector{Float64})
-    return ccall((:spectrum, libsinewave), Vector{Float64}, (Ptr{Float64}, Cint), buffer, length(buffer))
+    spectr = ccall((:spectrum, libsinewave), Ptr{Cdouble}, (Ptr{Float64}, Cint), buffer, length(buffer))
+    len = div(length(buffer), 2) + 1
+    return unsafe_wrap(Array{Float64,1}, spectr, len; own = true)
 end
 
 end #module
