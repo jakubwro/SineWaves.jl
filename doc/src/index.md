@@ -7,7 +7,9 @@ In this tutorial I will show how to add [binary dependency](https://github.com/j
 | WARNING: presented procedure is not working on Windows yet!|
 | --- |
 
-## Ensure BinaryBuilder.jl is installed and up to date
+## Installation
+
+Ensure BinaryBuilder.jl is installed and up to date
 
 1. Open Julia's REPL
 2. If you have no BinaryBuilder.jl installed press `]` to enter pkg prompt and then use `add` command install the package.

@@ -4,8 +4,9 @@ makedocs(modules = [SineWaves],
          sitename = "SineWaves.jl",
          pages = Any[
             "Home" => "index.md",
-            "Using BinaryBuilder" => "builder.md",
-            "C calls wrapper" => "ccalls.md",
+            "Wizard" => "wizard.md",
+            "BinaryBuilder" => "builder.md",
+            "C calls" => "ccalls.md",
             "Examples" => "examples.md"
         ])
 
