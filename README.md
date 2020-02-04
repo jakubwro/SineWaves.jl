@@ -1,4 +1,4 @@
-# SineWave.jl
+# SineWaves.jl
 
 In this tutorial I will show how to add [binary dependency](https://github.com/jakubwro/sinewave) to Julia using [BinaryBuilder.jl](https://github.com/JuliaPackaging/BinaryBuilder.jl) package.
 
@@ -218,13 +218,13 @@ end
 After this we are ready to test the new module:
 
 ```
-julia> using SineWave, UnicodePlots
+julia> using SineWaves, UnicodePlots
 
 julia> buffer = zeros(Float64, 256);
 
 julia> s = Sine(440.0, 48000.0);
 
-julia> SineWave.fill!(buffer, s);
+julia> SineWaves.fill!(buffer, s);
 
 julia> lineplot(buffer)
       ┌────────────────────────────────────────┐
