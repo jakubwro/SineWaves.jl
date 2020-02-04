@@ -3,7 +3,8 @@ module SineWaves
 
 using sinewave_jll
 
-export SineWave, fill!, spectrum
+import Base: fill!
+export SineWave, spectrum
 
 mutable struct SineWave
     previous::Float64
