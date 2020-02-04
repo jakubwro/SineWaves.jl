@@ -4,7 +4,7 @@
 
 Finally we are ready to test the new module:
 
-```
+```julia
 julia> using SineWaves, UnicodePlots
 
 julia> buffer = zeros(Float64, 256);
@@ -37,7 +37,7 @@ julia> lineplot(buffer)
 
 ## Observe spectrum
 
-```
+```julia
 julia> buffer = zeros(Float64, 256);
 
 julia> fill!(buffer, SineWave(8000.0, 48000.0));
