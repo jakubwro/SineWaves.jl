@@ -71,6 +71,7 @@ Now you'll be moved to a sandbox shell. There you should type commands to build 
 
 ```
 sandbox:${WORKSPACE}/srcdir # cd sinewave/
+sandbox:${WORKSPACE}/srcdir/sinewave # apk add fftw fftw-dev
 sandbox:${WORKSPACE}/srcdir/sinewave # make install
 cc -I. -std=gnu99 -shared -fPIC -o libsinewave.so sinewave.c -lm
 cc -I. -std=gnu99 -o sine libsinewave.so examples/fill_and_print_buffer.c -lm
