@@ -20,7 +20,9 @@ Make a platform selection
    Fully Custom Platform Choice
 ```
 
-## Select C library github repository
+## Select sources
+
+Select C library github repository
 
 ```
 			# Step 2a: Obtain the source code
@@ -37,7 +39,7 @@ you will have to manually update the recorded commit.
 > master
 ```
 
-Then the Wizard can will ask if you want to include additional sources or binary dependencies but I am going to skip that by answering `N`.
+Then the Wizard can will ask if you want to include additional sources. I am going to skip that by answering `N`.
 
 ## Binary dependencies
 
@@ -57,9 +59,9 @@ Enter name of the original C project. In my case it `sinewave`. This will be use
 > sinewave
 ```
 
-## Enter version of the project.
+## Project version
 
-It should be 0.0.1, 0.1.0 or 1.0.0 for the first time (TODO: is that true?)
+Enter version of the project. It should be 0.0.1, 0.1.0 or 1.0.0 for the first time (TODO: is that true?)
 ```
 Enter a version number for this project:
 > 0.1.0
@@ -69,26 +71,20 @@ Enter a version number for this project:
 
 Now you'll be moved to a sandbox shell. There you should type commands to build shared libraries and copy them to predefined $libdir and $bindir directories. In my case Makefile handles that itself, so the only things I need to do is to enter source code directory and run `make install`
 
-Do not use `apk` package manager for installing binary dependencies, they should be specified in `Binary dependencies` step as JLL packages. All haders you need are in `${prefix}/include` directory and libraries required for linker should be present in `${libdir}` locqtion.
+Do not use `apk` package manager for installing binary dependencies, they should be specified in `Binary dependencies` step as JLL packages. All haders you need are in `${prefix}/include` directory and libraries required for linker should be present in `${libdir}` location. See [BinaryBuilder.jl FAQ](https://juliapackaging.github.io/BinaryBuilder.jl/dev/FAQ/#Can-I-install-packages-in-the-build-environment?-1) for more details.
 
 ```
 sandbox:${WORKSPACE}/srcdir # cd sinewave/
 sandbox:${WORKSPACE}/srcdir/sinewave # export CPPFLAGS="-I${prefix}/include"
 sandbox:${WORKSPACE}/srcdir/sinewave # export LDFLAGS="-L${libdir}"
 sandbox:${WORKSPACE}/srcdir/sinewave # make install
-cc -I. -std=gnu99 -shared -fPIC -o libsinewave.so sinewave.c -lm
-cc -I. -std=gnu99 -o sine libsinewave.so examples/fill_and_print_buffer.c -lm
-mkdir -p /workspace/destdir/bin
-mkdir -p /workspace/destdir/lib
-cp libsinewave.so /workspace/destdir/lib
-cp sine /workspace/destdir/bin
 ```
 
 After you finish press CTRL+D to quit sandbox. All you typed was recorded and will be stored in the result build recipe. There is an option to edit the script in vi, so you can delete unnecessary commands.
 
 ## Select artifacts
 
-Now you need to select artifacts that you want to deploy. Despite that there is also executable generated, I am insterested in deploying just the library
+Now you need to select artifacts that you want to deploy. Despite that there is also executables generated, I am insterested in deploying just the library
 
 ```
 			# Step 4: Select build products
@@ -110,13 +106,13 @@ lib/libsinewave.so:
 > libsinewave
 ```
 
-## Testing the build recipe against all specified targets
+## Build other targets
 
 Now the script will be tested against all build targets in sandboxes. If something will be wrong, you'll be moved to interactive shell to provide proper seqence of commands for the failing build.
 
-## Deployment of build recipe.
+## Deploy the build recipe
 
-Standard place to keep build recipes is [Yggdrasil](https://github.com/JuliaPackaging/Yggdrasil) repository. Anyway, for tutorial purpose I am not going to deploy there. Local file suits me more for now.
+Standard place to keep build recipes is [Yggdrasil](https://github.com/JuliaPackaging/Yggdrasil) repository. Anyway, for the tutorial purpose I am not going to deploy there. Local file suits me more for now.
 
 ```
 			# Step 7: Deployment

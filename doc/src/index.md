@@ -4,8 +4,7 @@
 
 In this tutorial I will show how to add [binary dependency](https://github.com/jakubwro/sinewave) to Julia using [BinaryBuilder.jl](https://github.com/JuliaPackaging/BinaryBuilder.jl) package.
 
-| WARNING: presented procedure is not working on Windows yet!|
-| --- |
+WARNING: presented procedure is not working on Windows yet!
 
 ## Installation
 

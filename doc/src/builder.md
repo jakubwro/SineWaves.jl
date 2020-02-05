@@ -1,7 +1,7 @@
 
-## Build tarballs and deploy jll project
+# Build tarballs and deploy JLL project
 
-Time to generate jll package. It will wrap C binaries and allow to import them into other projects with Julia's package manager (Pkg).
+Time to generate JLL package. It will wrap C binaries and allow to import them into other projects with Julia's package manager (Pkg).
 
 ## Know your options
 Get familiar with options of the script with `julia build_tarballs.jl --help` command
@@ -30,4 +30,4 @@ $ julia build_tarballs.jl --deploy=jakubwro/sinewave_jll
 
 When script is done JLL module is pushed to your repository and tarballs are visible in [the releases tab](https://github.com/jakubwro/sinewave_jll/releases).
 
-TODO: descripe creating new release
+TODO: describe creating a new release
