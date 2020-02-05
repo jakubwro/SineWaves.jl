@@ -30,3 +30,4 @@ $ julia build_tarballs.jl --deploy=jakubwro/sinewave_jll
 
 When script is done JLL module is pushed to your repository and tarballs are visible in [the releases tab](https://github.com/jakubwro/sinewave_jll/releases).
 
+TODO: descripe creating new release
