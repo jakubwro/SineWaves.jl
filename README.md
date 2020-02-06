@@ -8,3 +8,5 @@ In this sample package I will show how to add [binary dependency](https://github
 
 | WARNING: presented procedure is not working on Windows yet!|
 | --- |
+
+For step by step instruction see [this package's documentation](https://jakubwro.github.io/SineWaves.jl/dev).

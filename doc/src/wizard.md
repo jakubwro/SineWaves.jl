@@ -1,6 +1,6 @@
 # Wizard
 
-To create `build_tarballs.jl` script you might want to use run_wizard() function. Let's do that step by step.
+Despite the fact that for more advanced users it might be faster to prepare `build_trabals.jl` manually in a text editor, to create build recipe you might use run_wizard() function. Let's do this step by step.
 
 ## Run the Wizard
 ```
