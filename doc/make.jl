@@ -7,6 +7,7 @@ makedocs(modules = [SineWaves],
             "Wizard" => "wizard.md",
             "BinaryBuilder" => "builder.md",
             "C calls" => "ccalls.md",
+            "Functions" => "api.md",
             "Examples" => "examples.md"
         ])
 
