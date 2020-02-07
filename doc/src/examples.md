@@ -1,8 +1,8 @@
 # Examples
 
-## Fill array with sine waveform
+Finally we are ready to test the new module.
 
-Finally we are ready to test the new module:
+## Fill an array with a sine waveform
 
 ```julia
 julia> using SineWaves, UnicodePlots
@@ -35,9 +35,11 @@ julia> lineplot(buffer)
 
 ```
 
-## Observe spectrum
+## Observe the spectrum
 
 ```julia
+julia> using SineWaves, UnicodePlots
+
 julia> buffer = zeros(Float64, 256);
 
 julia> fill!(buffer, SineWave(8000.0, 48000.0));
