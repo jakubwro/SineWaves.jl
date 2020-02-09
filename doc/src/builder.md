@@ -10,7 +10,7 @@ Get familiar with options of the script with `julia build_tarballs.jl --help` co
 
 Create empty repo named `sinewave_jll` on github.
 
-Normally binary dependencies are hold in [JuliaBinaryWrappers](https://github.com/JuliaBinaryWrappers/) organisation. If you are going to share your binaries with a wider audience you should consider depoying it there instead of your personal account.
+Normally binary dependencies are hold in [JuliaBinaryWrappers](https://github.com/JuliaBinaryWrappers/) organisation. If you are going to share your binaries with a wider audience you should consider deploying it there instead of your personal account.
 
 ## Deployment
 
@@ -20,7 +20,7 @@ Deploy JLL package and tarballs to the newly created repository.
 $ julia build_tarballs.jl --deploy=jakubwro/sinewave_jll
 ```
 
-The script will ask you for gihub user and password to generate an access token.
+The script will ask you for github user and password to generate an access token.
 If you are not comfortable with typing a password, you can set the token in an environment variable before running the script.
 
 ```
