@@ -1,6 +1,6 @@
 # Wizard
 
-Despite the fact that for more advanced users it might be faster to prepare `build_trabals.jl` manually in a text editor, to create build recipe you might use run_wizard() function. Let's do this step by step.
+Despite the fact that for more advanced users it might be faster to prepare `build_tarballs.jl` manually in a text editor, to create build recipe you might use run_wizard() function. Let's do this step by step.
 
 ## Run the Wizard
 ```
@@ -52,6 +52,7 @@ Do you require any (binary) dependencies?  [y/N]: y
 Enter JLL package name:
 > FFTW_jll
 ```
+One package name is required at a time.
 
 ## Project name
 ```
