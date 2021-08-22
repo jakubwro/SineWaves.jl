@@ -5,7 +5,7 @@ Despite the fact that for more advanced users it might be faster to prepare `bui
 ## Run the Wizard
 ```
 julia> using BinaryBuilder
-julia> run_wizard()
+julia> BinaryBuilder.run_wizard()
 ```
 
 ## Select platforms
